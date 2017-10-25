@@ -1,0 +1,7 @@
+---
+working_dir: "/tmp/workspace"
+dlrnapi_auth: "--username foo --password bar"
+dlrnapi_url: "--url http://localhost:5000"
+imported_repo: " https://trunk.rdoproject.org/centos7-master-head/8f/02/8f025691bacd6e945fb522697f17461dd31c0330_fa7fbe0c/"
+imported_commit_hash: "8f025691bacd6e945fb522697f17461dd31c0330"
+imported_distro_hash: "fa7fbe0ccb729367ce39a9643f5a33921aaa8d3d"

@@ -1,0 +1,44 @@
+- name: Clone DLRN if it's not provided by Zuul
+  shell:
+    cmd: |
+      if [[ ! -e "DLRN" ]]; then
+        if which zuul-cloner; then
+          zuul-cloner https://softwarefactory-project.io/r DLRN
+        else
+          git clone https://softwarefactory-project.io/r/DLRN.git --depth 1
+        fi
+      fi
+    chdir: "{{ working_dir }}"
+
+- name: Clone dlrnapi_client if it's not provided by Zuul
+  shell:
+    cmd: |
+      if [[ ! -e "dlrnapi_client" ]]; then
+        if which zuul-cloner; then
+          zuul-cloner https://softwarefactory-project.io/r dlrnapi_client
+        else
+          git clone https://softwarefactory-project.io/r/dlrnapi_client.git --depth 1
+        fi
+      fi
+    chdir: "{{ working_dir }}"
+
+- name: Install DLRN dependencies
+  yum: name={{ item }} state=latest
+  with_items:
+  - git
+  - createrepo
+  - python-virtualenv
+  - mock
+  - gcc
+  - redhat-rpm-config
+  - rpmdevtools
+  - libffi-devel
+  - openssl-devel
+  - yum-utils
+  become: true
+
+- name: Adding user to mock group
+  user: name="{{ ansible_user }}"
+        groups=mock
+        append=yes
+  become: true

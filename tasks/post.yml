@@ -1,0 +1,16 @@
+- name: Create artifacts directory
+  file:
+    path: "{{ working_dir }}/artifacts"
+    state: directory
+
+- name: Copy logs
+  synchronize:
+    src: "{{ working_dir }}/DLRN/data/repos"
+    dest: "{{ working_dir }}/artifacts/DLRN"
+    mode: pull
+    copy_links: true
+
+- synchronize:
+    src: "{{ working_dir }}/DLRN/commits.sqlite"
+    dest: "{{ working_dir }}/artifacts"
+    mode: pull

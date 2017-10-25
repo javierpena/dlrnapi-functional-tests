@@ -1,0 +1,12 @@
+---
+- name: Prepare pre-requisites
+  include_tasks: prepare.yml
+
+- block:
+    - name: Run functional tests
+      include_tasks: run.yml
+
+  always:
+    - name: Gather logs
+      include_tasks: post.yml
+      ignore_errors: true
